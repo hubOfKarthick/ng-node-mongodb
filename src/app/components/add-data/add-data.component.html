@@ -1,0 +1,33 @@
+<form class="needs-validation" onsubmit="return false" novalidate>
+    <div class="dashboard-container">
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" placeholder="Title" id="title" required name="title"
+                [(ngModel)]="titleValue">
+            <label for="title">Title*</label>
+            <div class="invalid-feedback">
+                Story without a Title! Not good!
+            </div>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control" placeholder="Description" id="description" required name="description"
+                [(ngModel)]="descriptionValue">
+            <label for="description">Description*</label>
+            <div class="invalid-feedback">
+                Story without a Description! Not good!
+            </div>
+        </div>
+        <div class="mt-3" *ngIf="existingValue !== undefined">
+            <strong>Status: </strong> {{getPublishedStatus(existingValue.published)}}
+        </div>
+
+        <div class="mt-3">
+            <button *ngIf="existingValue === undefined" class="btn btn-primary" type="submit" (click)="addNewStory()" >Save</button>
+            <ng-container *ngIf="existingValue !== undefined">
+                <button class="btn btn-primary mx-3" type="submit" [disabled]="getPublishedStatus(existingValue.published) === 'Yay! It\'s Published.'">Publish</button>
+                <button class="btn btn-danger mx-3" type="submit" (click)="deleteStory()">Delete</button>
+                <button class="btn btn-success mx-3" type="submit" (click)="updateStory()">Update</button>
+            </ng-container>
+            
+        </div>
+    </div>
+</form>
